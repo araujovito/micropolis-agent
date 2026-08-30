@@ -12,3 +12,4 @@ runs/
 
 # build do engine
 vendor/
+node_modules/
