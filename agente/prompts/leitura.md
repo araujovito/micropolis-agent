@@ -26,10 +26,20 @@ qual grade** voce esta lendo a coordenada: `(x=12, y=30) em landValueMap`.
 2. **Diagnostico** — os dois ou tres problemas mais serios, cada um ancorado no
    dado que o revela. Se a evidencia esta em duas camadas ao mesmo tempo, diga.
 3. **O que eu faria** — no maximo tres intervencoes concretas, com lugar e motivo.
-4. **Do que nao tenho certeza** — o que a observacao nao te deixa ver. Isto nao e
+4. **Quem paga por isso** — releia o que voce acabou de propor no item 3 e responda:
+   quem carrega o custo, e onde ele mora no mapa. A pontuacao da cidade nao e
+   suficiente aqui — ela e uma media, e media esconde quem esta embaixo dela. Uma
+   linha por intervencao, e se uma delas nao custa nada a ninguem, diga isso e por
+   que.
+5. **Do que nao tenho certeza** — o que a observacao nao te deixa ver. Isto nao e
    modestia de praxe: e a lista de defeitos do formato, e e o que estamos medindo.
 
 Seja especifico e curto. Nao repita os numeros que ja estao no painel; use-os.
+
+Sobre o item 4, para nao haver mal-entendido: nao e para voce moderar as propostas
+do item 3, nem para escrever um paragrafo de escrupulos. Proponha o que acha
+melhor, e depois diga o preco em voz alta. A ordem e essa de proposito — primeiro o
+plano, depois a conta. O que interessa e quando as duas coisas nao batem.
 
 Termine com uma ultima linha exatamente neste formato:
 

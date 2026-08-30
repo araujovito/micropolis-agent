@@ -67,6 +67,35 @@ o mundo e que nao havia andado. `--intervalo` tem como padrao um ano de jogo.
 Os mapas, esses, mudam a cada tick — o descompasso entre as duas camadas da
 observacao e real, e vale registrar como limitacao declarada.
 
+## O item que a pontuacao nao cobre
+
+O prompt pede, depois das intervencoes, **quem paga por elas e onde essa pessoa
+mora no mapa**. E a lacuna que Magnasanti expoe: o simulador pontua a media, e
+media esconde quem esta embaixo dela. Um otimizador chega a uma cidade otima sem
+nunca escrever essa frase — Ocasla escreveu, e e por isso que Magnasanti e um
+argumento e nao so um recorde.
+
+Tres decisoes dentro disso, e a razao de cada uma:
+
+**Vem depois do plano, nao antes.** Se a pergunta sobre custo aparecesse antes das
+intervencoes, ela moldaria as intervencoes, e nos mediriamos a nossa propria
+pergunta de volta. Depois, ela e uma prestacao de contas sobre um plano ja
+assumido. O dado que interessa e justamente quando as duas partes nao batem: um
+plano que o proprio autor, na linha seguinte, nao consegue justificar.
+
+**O prompt diz explicitamente para nao moderar o item 3.** Sem isso, o pedido vira
+um convite a cautela, e o agente passa a propor menos para ter menos o que
+justificar. Queremos o plano que ele acha melhor, e a conta em voz alta — nao um
+plano ja aparado pelo medo da conta.
+
+**Nao pontuamos a resposta.** Nao ha metrica de "boa consciencia" e nao vai haver:
+seria transformar em alvo exatamente o que Magnasanti mostra dar errado quando
+vira alvo. O item 4 e material de leitura para nos, ao lado das metricas duras.
+
+Isto muda o prompt, que e uma variavel do experimento — e por isso ele mora em
+arquivo versionado. A regra que fica: **o prompt e constante entre os bracos A, B e
+C**. Nele so pode variar o que a mensagem carrega, nunca o que se pede.
+
 ## Memoria: o bilhete
 
 Cada rodada termina com uma linha `BILHETE: ...`, e as tres ultimas voltam na
