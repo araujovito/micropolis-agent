@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+
+# artefatos de execucao
+runs/
+*.png
+*.log
+
+# build do engine
+vendor/
