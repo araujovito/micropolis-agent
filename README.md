@@ -139,23 +139,30 @@ Reportar so uma seria escolher a conclusao antes de medir.
 | 0 | Engine headless, estado legivel por codigo | **feito** |
 | — | Desenho do formato de observacao | **feito** (proposta) |
 | — | Bindings C++ dos mapas agregados | **feito** |
-| 1 | Loop somente-leitura: o modelo descreve e sugere, sem agir | proximo |
-| 2 | Acoes: o agente joga | |
+| 1 | Loop somente-leitura: o modelo descreve e sugere, sem agir | **feito** (rodou em modo seco) |
+| 2 | Acoes: o agente joga | proximo |
 | 3 | Log, metricas e rodadas comparativas | |
 
-Pendencias conhecidas estao anotadas nos documentos, nao escondidas: a conversao
-de `cityTime` para ano ainda esta chutada; a rampa de caracteres nao trata mapas
-com sinal, e crescimento negativo vira vazio; e a estimativa de custo em
-`docs/02-observacao.md` supunha JSON, subestimando o quanto cabe numa grade.
+Pendencias conhecidas estao anotadas nos documentos, nao escondidas. As atuais:
+a simulacao nao e deterministica e o experimento promete "mesmas sementes" — falta
+achar se o engine expoe a semente; o loop da Fase 1 ainda nao foi rodado contra um
+modelo de verdade, so em modo seco; e as rodadas usam sempre Haight-Ashbury, o que
+mede tanto o mapa quanto a representacao.
 
 ---
 
 ## Rodando
 
 ```bash
-./setup.sh                      # sem root: emscripten, pnpm, clone e build
-node motor/sonda-camadas.mjs  # le a cidade e imprime as grades
+./setup.sh                     # sem root: emscripten, pnpm, clone e build
+node motor/sonda-camadas.mjs   # le a cidade e imprime as grades
+python agente/leitura.py       # loop da Fase 1, sem chamar modelo nenhum
 ```
+
+O loop roda em **modo seco** por padrao: em vez de chamar a API, ele imprime a
+mensagem que o modelo receberia. Da para ver a observacao inteira, e o que ela
+custa em tokens, sem gastar um. `--modelo claude` liga a chamada real. O desenho
+da fase esta em [`docs/03-loop-somente-leitura.md`](docs/03-loop-somente-leitura.md).
 
 O `setup.sh` monta tudo dentro do diretorio do usuario. Detalhes, e as duas
 armadilhas do engine que custam horas se voce nao souber delas, em
