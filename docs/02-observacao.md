@@ -35,29 +35,57 @@ proprio simulador raciocina nessas grades. Adotamos as resolucoes dele em vez de
 inventar as nossas. Isso e uma decisao de projeto, nao preguica: qualquer resumo
 nosso seria um palpite competindo com um que ja esta calibrado pela dinamica do jogo.
 
-**Pendencia tecnica:** nenhum desses mapas esta exposto ao JS. O Embind entrega
-apenas `landValueAverage`, um escalar. Sera preciso estender `emscripten.cpp` com
-bindings de leitura. O engine e GPL e o fork fica em `vendor/`; se ficar limpo,
-vale mandar de volta como PR ao upstream.
+**Resolvido.** Esses mapas nao chegavam ao JS — o Embind entregava apenas
+`landValueAverage`, um escalar. `patches/0001-expor-overlay-maps.patch` estende
+`emscripten.cpp` com 13 acessores. Ver `docs/01-ambiente.md`.
 
 ## As tres camadas propostas
 
 ### Camada 1 — escalares (sempre presente, ~150 tokens)
 
-O painel: ano, caixa, populacao, pontuacao, imposto, medias de poluicao/crime/
-transito, demanda RCI (`resValve`/`comValve`/`indValve`).
+O painel: ano, caixa, populacao, pontuacao, classe da cidade, imposto, medias de
+poluicao/crime/transito e demanda RCI (`resValve`/`comValve`/`indValve`).
 
-### Camada 2 — grades textuais (o braco "texto" do experimento, ~1.000 tokens)
+Implementado em `lerEscalares`. Duas notas de implementacao que custaram tempo:
+a data vem pronta do engine (`cityYear`/`cityMonth`) e nao deve ser recalculada a
+partir de `cityTime`; e `cityClass` chega como enum do Embind, cujo `JSON.stringify`
+devolve `{}` sem reclamar — o valor esta em `.value`.
 
-As camadas espaciais em **cluster 8 (15x13 = 195 celulas)**, nao em 60x50.
-Justificativa: 60x50 sao 3.000 numeros por camada; com cinco camadas, 15 mil
-numeros — voltamos ao problema original. A 15x13, cinco camadas cabem em ~1.000
-numeros, e a resolucao ainda distingue bairros, que e a escala em que decisoes de
-zoneamento acontecem.
+### Camada 2 — grades textuais (o braco "texto" do experimento)
 
-Renderizadas como grade de caracteres, nao como JSON — densidade em faixas
-(`.` vazio, `1`-`9` crescente), uma grade por camada, com eixos rotulados para
-o modelo conseguir citar coordenadas.
+As camadas espaciais renderizadas como **grade de caracteres**, uma grade por
+camada, com eixos rotulados para o modelo conseguir citar coordenadas.
+
+Caracteres, e nao JSON, porque a grade preserva a vizinhanca espacial na propria
+forma do texto: linhas adjacentes ficam adjacentes na tela. Um array de arrays
+carrega os mesmos numeros e desmancha a figura. Na pratica isso funciona — a
+poluicao de Haight-Ashbury em 60x50 deixa ver o rio e os focos industriais a olho
+nu.
+
+**Correcao da estimativa de custo.** A primeira versao deste documento escolheu
+cluster 8 (15x13) alegando que 60x50 seriam "3.000 numeros por camada". A conta
+supunha JSON e estava errada por cerca de tres vezes: como grade de caracteres,
+60x50 sao 3.000 *caracteres*, na ordem de 1.000 tokens por camada. Cinco camadas
+em 60x50 cabem em algo como 5.000 tokens — caro, mas nao proibitivo.
+
+Com o custo desqualificado como criterio, a escolha da resolucao passa a ser
+empirica, e vira parte do experimento em vez de um pressuposto:
+
+| Resolucao | Cluster | Custo aprox. por camada | Aposta |
+| --- | --- | --- | --- |
+| 60x50 | 2 | ~1.000 tokens | detalhe suficiente para posicionar |
+| 30x25 | — | ~250 tokens | meio-termo, exige reamostragem nossa |
+| 15x13 | 8 | ~200 tokens | bairro, nao quarteirao |
+
+Preferencia atual: comecar em 60x50 para as camadas de cluster 2, que e a
+resolucao nativa delas, e reamostrar so se o custo doer na pratica. Reamostrar e
+uma decisao nossa que se interpoe entre o simulador e o modelo, e cada uma dessas
+e uma variavel a mais para explicar um resultado ruim.
+
+**Mapas com sinal.** `rateOfGrowthMap` vai de -61 a +93. Uma rampa so positiva
+transforma declinio em vazio, apagando justamente o sinal de bairro em decadencia.
+Eles usam rampa divergente: minusculas para queda, maiusculas para alta, `0` no
+meio.
 
 ### Camada 3 — imagem (o braco "visao", ~1.500 tokens)
 
