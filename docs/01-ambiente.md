@@ -52,3 +52,19 @@ de 0 a ~214 mil, com poluicao e transito subindo junto.
 
 Pendencia: a conversao de `cityTime` para ano esta chutada como `1900 + tick/48`.
 Conferir contra o codigo do engine antes de usar em qualquer metrica.
+
+## O patch de bindings
+
+Os mapas agregados do engine nao chegavam ao JavaScript. A classe `Map<>` ja
+estava exposta (`MapByte1/2/4`, `MapShort8`, com `get`, `MAP_W`, `MAP_H`), mas
+nenhum membro do `Micropolis` era alcancavel, entao nada disso servia para nada.
+O Embind entregava so `landValueAverage`, uma media escalar.
+
+`patches/0001-expor-overlay-maps.patch` fecha essa lacuna com 13 acessores que
+devolvem referencia ao mapa vivo. E deliberadamente pequeno e no estilo do
+arquivo, para poder virar um PR ao upstream.
+
+O patch vive aqui, e nao no `vendor/`, porque o `vendor/` nao e versionado: o
+Micropolis e GPL e nos o compilamos do upstream em vez de redistribuir. O
+`setup.sh` clona, aplica e constroi, e reconhece um patch ja aplicado para poder
+rodar de novo sem estragar nada.

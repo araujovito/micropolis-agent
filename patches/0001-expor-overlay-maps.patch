@@ -1,0 +1,36 @@
+diff --git a/packages/micropolis-engine/src/emscripten.cpp b/packages/micropolis-engine/src/emscripten.cpp
+index 303229c..35638d1 100644
+--- a/packages/micropolis-engine/src/emscripten.cpp
++++ b/packages/micropolis-engine/src/emscripten.cpp
+@@ -1247,6 +1247,31 @@ function createTypedArrayFromMap(mapInstance) {
+     .function("randomlySeedRandom", &Micropolis::randomlySeedRandom)
+     .function("seedRandom", &Micropolis::seedRandom)
+ 
++    // Overlay Maps
++    //
++    // The Map<> template is already bound above (MapByte1/2/4, MapShort8) with
++    // get/set/MAP_W/MAP_H, but no Micropolis member was reachable from JS, so
++    // none of it could be used. These accessors close that gap: they hand out a
++    // reference to the live map, letting a frontend read the simulation's own
++    // aggregated views (pollution, crime, land value, ...) instead of only the
++    // scalar averages.
++    //
++    // Lifetime: the returned object aliases a member of this Micropolis
++    // instance. It does not own the memory and must not outlive the engine.
++    .function("getPopulationDensityMap", +[](Micropolis &self) { return &self.populationDensityMap; }, allow_raw_pointers())
++    .function("getTrafficDensityMap", +[](Micropolis &self) { return &self.trafficDensityMap; }, allow_raw_pointers())
++    .function("getPollutionDensityMap", +[](Micropolis &self) { return &self.pollutionDensityMap; }, allow_raw_pointers())
++    .function("getLandValueMap", +[](Micropolis &self) { return &self.landValueMap; }, allow_raw_pointers())
++    .function("getCrimeRateMap", +[](Micropolis &self) { return &self.crimeRateMap; }, allow_raw_pointers())
++    .function("getTerrainDensityMap", +[](Micropolis &self) { return &self.terrainDensityMap; }, allow_raw_pointers())
++    .function("getPowerGridMap", +[](Micropolis &self) { return &self.powerGridMap; }, allow_raw_pointers())
++    .function("getRateOfGrowthMap", +[](Micropolis &self) { return &self.rateOfGrowthMap; }, allow_raw_pointers())
++    .function("getFireStationMap", +[](Micropolis &self) { return &self.fireStationMap; }, allow_raw_pointers())
++    .function("getFireStationEffectMap", +[](Micropolis &self) { return &self.fireStationEffectMap; }, allow_raw_pointers())
++    .function("getPoliceStationMap", +[](Micropolis &self) { return &self.policeStationMap; }, allow_raw_pointers())
++    .function("getPoliceStationEffectMap", +[](Micropolis &self) { return &self.policeStationEffectMap; }, allow_raw_pointers())
++    .function("getComRateMap", +[](Micropolis &self) { return &self.comRateMap; }, allow_raw_pointers())
++
+     // Game State and Data Access
+     .function("getTile", &Micropolis::getTile)
+     .function("setTile", &Micropolis::setTile)
