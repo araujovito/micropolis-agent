@@ -49,4 +49,4 @@ export PATH="$VENDOR/apps/micropolis/node_modules/.bin:$PATH"
 pnpm run build:engine
 
 echo
-echo "pronto. teste com:  node bridge/probe-overlays.mjs"
+echo "pronto. teste com:  node motor/sonda-camadas.mjs"

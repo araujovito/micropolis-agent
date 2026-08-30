@@ -6,7 +6,7 @@ venv/
 *.egg-info/
 
 # artefatos de execucao
-runs/
+execucoes/
 *.png
 *.log
 

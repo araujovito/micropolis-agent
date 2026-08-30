@@ -46,7 +46,7 @@ antes de inicializar.
 
 ## Estado exposto
 
-299 simbolos chegam ao JS via Embind. `bridge/probe.mjs` le um subconjunto e
+299 simbolos chegam ao JS via Embind. `motor/sonda-camadas.mjs` le um subconjunto e
 comprova que a simulacao evolui — 500 ticks em Haight-Ashbury levam a populacao
 de 0 a ~214 mil, com poluicao e transito subindo junto.
 

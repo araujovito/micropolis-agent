@@ -1,4 +1,4 @@
-import { novaCidade, lerOverlay, grade } from './engine.mjs';
+import { novaCidade, lerOverlay, grade } from './micropolis.mjs';
 
 const { m } = await novaCidade('/cities/haight.cty');
 for (let i = 0; i < 300; i++) m.simTick();

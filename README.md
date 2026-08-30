@@ -47,7 +47,7 @@ de mil cidades, com mais de 12 milhoes de habitantes simulados. Custo total de
 infraestrutura: cinco dolares por mes.
 
 O mais valioso ali nao sao os numeros, e o relato franco dos fracassos. Eles estao
-destrinchados em [`docs/00-prior-art.md`](docs/00-prior-art.md), com a decisao de
+destrinchados em [`docs/00-trabalho-anterior.md`](docs/00-trabalho-anterior.md), com a decisao de
 projeto que cada um provocou aqui. Em resumo:
 
 | Fracasso relatado | O que fazemos com isso |
@@ -154,7 +154,7 @@ com sinal, e crescimento negativo vira vazio; e a estimativa de custo em
 
 ```bash
 ./setup.sh                      # sem root: emscripten, pnpm, clone e build
-node bridge/probe-overlays.mjs  # le a cidade e imprime as grades
+node motor/sonda-camadas.mjs  # le a cidade e imprime as grades
 ```
 
 O `setup.sh` monta tudo dentro do diretorio do usuario. Detalhes, e as duas
