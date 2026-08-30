@@ -34,8 +34,48 @@ cidade vira colcha de retalhos.
 
 ## De onde veio a ideia
 
-O ponto de partida foi uma reportagem sobre um desenvolvedor que colocou agentes
-de IA para jogar SimCity. O trabalho e este:
+De [Magnasanti](https://www.moma.org/interactives/exhibitions/2013/designandviolence/sim-city-magnasanti-vincent-ocasla/),
+na exposicao *Design and Violence* do MoMA.
+
+Vincent Ocasla, estudante de arquitetura filipino, passou de 2007 a 2009 — um ano e
+meio so de teoria, antes de colocar a primeira zona — construindo no SimCity 3000 a
+maior cidade que o jogo comporta: seis milhoes de habitantes, estavel por cinquenta
+mil anos de jogo. Nenhum quarteirao abandonado. A planta e uma
+[Bhavacakra](https://pt.wikipedia.org/wiki/Bhavacakra) modificada, a roda budista da
+existencia.
+
+Dentro dela, nenhum cidadao passa dos cinquenta anos. Nao ha escolas, nem hospitais,
+nem bombeiros. O desemprego e alto e a policia e hipereficiente. Ocasla, na
+[entrevista a Vice](https://www.vice.com/en/article/q-a-vincent-ocasla-the-22-year-old-who-designed-the-perfect-totalitarian-city/),
+nao ameniza:
+
+> Os sims em Magnasanti toleram-no. Nao se revoltam, foram adormecidos, adoecidos,
+> escravizados mentalmente.
+
+O jogo, esse, marca sucesso.
+
+### Por que isso e um projeto sobre agentes
+
+Magnasanti nao e sobre IA. E o registro do que acontece quando um otimizador
+paciente leva **uma metrica so** ate o fim, e o simulador nao tem como discordar.
+Ocasla fez de proposito, e escreveu por que. Um agente nao teria a segunda metade.
+
+Isso muda o que se mede aqui. A pergunta obvia — "o agente consegue fazer uma
+cidade grande?" — e a pergunta que Magnasanti ja respondeu, e a resposta e
+desconfortavel: consegue, e o custo nao aparece na metrica que voce escolheu. Por
+isso as metricas deste projeto sao **obrigatoriamente em conjunto** (populacao,
+pontuacao e taxa de falencia), e nenhuma delas sozinha vale como resultado.
+
+E tambem por que o agente e obrigado a **registrar o motivo** de cada decisao. Nao
+e log de depuracao: e a parte que faltaria a um otimizador, e sem ela nao ha como
+distinguir uma cidade boa de uma cidade que so pontua bem.
+
+---
+
+## Trabalho anterior: agentes de IA jogando isto
+
+Ja foi feito, em escala, e o relato dos fracassos e a fonte da maior parte das
+decisoes de projeto daqui:
 
 - **Hallucinating Splines** — https://dunn.us/notes/the-splines-are-hallucinating
 - Discussao no Hacker News — https://news.ycombinator.com/item?id=46946593
@@ -60,7 +100,8 @@ projeto que cada um provocou aqui. Em resumo:
 Achado que mais mexeu com o desenho: **populacao e pontuacao sao inversamente
 correlacionadas** em escala. Cidades grandes se espalham e geram problemas que a
 formula de pontuacao pune; cidades bem pontuadas ficam compactas. Nenhum agente
-otimizou as duas. Isso desqualifica "populacao em N anos" como metrica unica.
+otimizou as duas — que e a observacao de Magnasanti chegando por outro caminho, e
+por medicao em vez de por argumento.
 
 **Onde nos diferimos:** aquele projeto e texto puro. A camada visual e o buraco
 que ele deixou, e e onde nossa hipotese vive.
@@ -128,7 +169,9 @@ Tres bracos, mesma cidade, mesmas sementes, mesmo numero de decisoes:
 | C | as tres camadas | elas se somam ou se atrapalham? |
 
 Metricas obrigatoriamente em conjunto: **populacao, pontuacao e taxa de falencia**.
-Reportar so uma seria escolher a conclusao antes de medir.
+Reportar so uma seria escolher a conclusao antes de medir — e, pior, seria repetir
+o erro que Magnasanti demonstra: uma metrica levada ao limite produz uma cidade que
+pontua bem e na qual ninguem viveria.
 
 ---
 
